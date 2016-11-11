@@ -249,13 +249,12 @@
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml" >
                 <tree string="Case Tree" create="false" edit="false" >
-                    <field name="product" string="产品型号"/>
-                    <field name="case_oem_no" string="厂商case编号"/>
-                    <field name="case_level" string = "case级别" />
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
-                    <field name="applicant_id" string = "申请人"/>
-                    <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
+                    <field name="case_level" string = "case级别" />
+                    <field name="product" string="产品型号"/>
+                    <field name="case_oem_no" string="厂商case编号"/>
+                    <field name="contact_user" string = "故障联系人"  />
                     <field name="case_type" string = "case类型"/>
                     <field name="state" string = "当前状态"/>
                     <field name="user_id" string="当前处理人"/>
@@ -268,13 +267,12 @@
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml">
                 <tree string="Case Tree" >
-                    <field name="product" string="产品型号"/>
-                    <field name="case_oem_no" string="厂商case编号"/>
-                    <field name="case_level" string = "case级别" />
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
-                    <field name="applicant_id" string = "申请人"/>
-                    <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
+                    <field name="case_level" string = "case级别" />
+                    <field name="product" string="产品型号"/>
+                    <field name="case_oem_no" string="厂商case编号"/>
+                      <field name="contact_user" string = "故障联系人"  />
                     <field name="case_type" string = "case类型"/>
                     <field name="state" string = "当前状态"/>
                     <field name="user_id" string="当前处理人"/>
