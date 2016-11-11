@@ -249,6 +249,9 @@
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml" >
                 <tree string="Case Tree" create="false" edit="false" >
+                    <field name="product" string="产品型号"/>
+                    <field name="case_oem_no" string="厂商case编号"/>
+                    <field name="case_level" string = "case级别" />
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="applicant_id" string = "申请人"/>
@@ -265,6 +268,9 @@
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml">
                 <tree string="Case Tree" >
+                    <field name="product" string="产品型号"/>
+                    <field name="case_oem_no" string="厂商case编号"/>
+                    <field name="case_level" string = "case级别" />
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="applicant_id" string = "申请人"/>
