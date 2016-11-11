@@ -28,8 +28,9 @@
                         <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_user" string = "故障联系人" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" />
                         <field name="contact_user_phone" string = "联系电话" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                        <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' on_change="onchange_SN_char(SN)" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router" />
-                        <field name="SN_char" string = "SN" on_change="onchange_SN(SN_char)" groups="base.group_server_desk_partner" required = "True" attrs="{'invisible':[('state','!=','new')]}" />
+                        <!--<field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' on_change="onchange_SN_char(SN)" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','!=','new')]}" />-->
+                        <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' on_change="onchange_SN_char(SN)" invisible="True" />
+                        <field name="SN_char" string = "SN" on_change="onchange_SN(SN_char)"  required = "True"  />
                         <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         <field name="product" string="产品型号"/>
@@ -509,7 +510,9 @@
                             on_change="onchange_address(use_parent_address, parent_id)"/>
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons"> </div>
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button class="oe_inline oe_stat_button" type="action" name="%(server_desk_equimpment_link_view)d" icon="fa-star" string="设备"/>
+                    </div>
 
                     <group>
                         <group>

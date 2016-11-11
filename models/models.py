@@ -154,7 +154,8 @@ class Case(models.Model):
         result = {'value': {}}
 
         if SN_char:
-            get_sn=self.env['server_desk.equipment'].search([('SN','=',SN_char)],limit=1)
+            print SN_char
+            get_sn = self.env['server_desk.equipment'].search([('SN','=','FNS18380MNT')],limit=1)
             if get_sn and fields.Date.from_string(get_sn.end_date) >= fields.date.today():
                 result['value']['SN']=get_sn.id
                 return result
@@ -166,6 +167,7 @@ class Case(models.Model):
         result = {'value': {}}
 
         if SN:
+            print SN
             get_sn = self.env['server_desk.equipment'].search([('id', '=', SN)], limit=1)
             if get_sn and fields.Date.from_string(get_sn.end_date) >= fields.date.today():
                 result['value']['SN_char'] = get_sn.SN
@@ -547,3 +549,4 @@ class log(models.Model):
 class res_partner(models.Model):
     _inherit = 'res.partner'
     contact_users = fields.Many2many('res.users',string="联系人")
+    SN = fields.One2many('server_desk.equipment','customer', string="设备",)  # 客户名称
