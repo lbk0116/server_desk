@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <form string="Case Form" >
                 <header>
+                    <button name="%(asset_management.launch_session_get_wizard)d" type="action" string="MA" states="tac1,tac2" class="oe_highlight" groups="base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                     <button name="set_to_cds" type="workflow" string="提交" states="new" class="oe_highlight" groups="base.group_server_desk_partner"/>
                     <button name="set_to_tac1" type="workflow" string="转TAC一线团队" states="cds,new" class="oe_highlight" groups="base.group_server_desk_cds"/>
                     <button name="set_to_tac2" type="workflow" string="转TAC二线团队" states="customer_feedback" class="oe_highlight" groups="base.group_server_desk_tac1"/>
@@ -46,7 +47,7 @@
                         <field name="close_date" string="关闭时间" attrs="{'readony':[('case_type','!=','standby')]}"  />
                         <field name="start_time" string="开始时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                         <field name="end_time" string="结束时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
-                        <button name="%(server_desk_log_form_action)d" type="action" string="换SN" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','==','new')]}"/>
+                        <button name="%(server_desk_equimpment_link_view)d" type="action" string="换SN" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','==','new')]}"/>
                     </group>
                     </group>
                     <notebook>

@@ -155,7 +155,7 @@ class Case(models.Model):
 
         if SN_char:
             print SN_char
-            get_sn = self.env['server_desk.equipment'].search([('SN','=','FNS18380MNT')],limit=1)
+            get_sn = self.env['server_desk.equipment'].search([('SN','=',SN_char)],limit=1)
             if get_sn and fields.Date.from_string(get_sn.end_date) >= fields.date.today():
                 result['value']['SN']=get_sn.id
                 return result
@@ -465,7 +465,10 @@ class Case(models.Model):
         else:
             vals['case_id']='C'+date+'001'
         return super(Case,self).create(cr,uid,vals,context=context)
-        
+    def start_ma(self):
+        if self.SN:
+            pass
+
 class Feedback(models.Model):
     _name = 'server_desk.feedback'
 
