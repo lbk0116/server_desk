@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="server_desk_equimpment_link_view" model="ir.actions.act_window">
+            <field name="name">对应设备</field>
+            <field name="res_model">server_desk.equipment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"active_id":active_id}</field>
+            <field name="domain">['|',('contract','=',active_id),('customer','=',active_id)]</field>
+            <field name="target">current</field>
+        </record>
+        <record model="ir.actions.act_window" id="server_desk_log_form_action">
+            <field name="name">log</field>
+            <field name="res_model">server_desk.log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="context">{"active_id":active_id}</field>
+            <field name="target">current</field>
+        </record>
      <record model="ir.ui.view" id="pending_case_form_view">
         <field name="name">case.pending_form</field>
         <field name="model">server_desk.case</field>
@@ -47,7 +64,7 @@
                         <field name="close_date" string="关闭时间" attrs="{'readony':[('case_type','!=','standby')]}"  />
                         <field name="start_time" string="开始时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                         <field name="end_time" string="结束时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
-                        <button name="%(server_desk_equimpment_link_view)d" type="action" string="换SN" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','==','new')]}"/>
+                        <button name="%(server_desk_log_form_action)d" type="action" string="换SN" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','==','new')]}"/>
                     </group>
                     </group>
                     <notebook>
@@ -176,8 +193,7 @@
                         <field name="applicant_way" string = "申请方式" />
                         <field name="contact_user" string = "故障联系人" />
                         <field name="contact_user_phone" string = "联系电话" />
-                        <field name="SN_char" string = "SN"  invisible="True"/>
-                        <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' />
+                        <field name="SN_char" string = "SN" readonly="True"/>
                         <field name="customer_id" string = "客户" />
                         <field name="contract_id" string = "合同号"/>
                         <field name="product" string="产品型号"/>

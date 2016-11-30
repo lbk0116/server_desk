@@ -91,9 +91,9 @@ class Case(models.Model):
     customer_id = fields.Many2one(related='SN.customer', string="客户",readonly=1, domain=[('category', '=', u'case客户')])
     # SN_customer = fields.Many2one(related='SN.customer',string="SN客户",domain=[('category','=',u'case客户')])
     contract_id = fields.Many2one(related='SN.contract',string="合同",readonly=1)
-    product = fields.Char(related='SN.product',tring="产品型号",readonly=1)
+    product = fields.Char(compute='get_product',tring="产品型号",readonly=1,store= True)
     case_type = fields.Selection([('Technology diagnosis','技术诊断'),('Technical consulting','技术咨询'),('RMA','RMA'),('DOA','DOA'),('standby','standby')],default='Technology diagnosis',string="case类型",required=True)
-    case_level = fields.Selection([('level1','1级故障'),('level2','2级故障'),('level3','3级故障'),('level4','4级故障')],default='level1')
+    case_level = fields.Selection([('level1','1'),('level2','2'),('level3','3'),('level4','4')],default='level1')
     case_type_note = fields.Text(string="case类型说明")
     user_id = fields.Many2one('res.users', string="当前处理人",default=lambda self: self.env.user)
     cds_id = fields.Many2one('res.users', string="服务台处理人")
@@ -149,6 +149,10 @@ class Case(models.Model):
         }
         return value
 
+    @api.depends('SN.product')
+    def get_product(self):
+        for record in self:
+            record.product = record.SN.product
     @api.multi
     def onchange_SN(self,SN_char):
         result = {'value': {}}

@@ -151,14 +151,7 @@
                 </p>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="server_desk_log_form_action">
-            <field name="name">log</field>
-            <field name="res_model">server_desk.log</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-            <field name="context">{"active_id":active_id}</field>
-            <field name="target">current</field>
-        </record>
+
         <record id="nantian_case_partner_action" model="ir.actions.act_window">
             <field name="name">service.partner</field>
             <field name="res_model">res.partner</field>
@@ -204,15 +197,7 @@
 
             <!--<field name="view_id" ref="nantian_service_partner_form"/>-->
         </record>
-        <record id="server_desk_equimpment_link_view" model="ir.actions.act_window">
-            <field name="name">对应设备</field>
-            <field name="res_model">server_desk.equipment</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{"active_id":active_id}</field>
-            <field name="domain">['|',('contract','=',active_id),('customer','=',active_id)]</field>
-            <field name="target">current</field>
-        </record>
+
 
         <!-- top level menu: no parent -->
         <menuitem id="main_serverdesk_menu" name="Server Desk"/>
