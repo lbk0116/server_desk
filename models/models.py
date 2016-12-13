@@ -120,6 +120,7 @@ class Case(models.Model):
     feedback_ids = fields.One2many('server_desk.feedback', 'case_id', string="处理过程")
     contact_user = fields.Char(string="故障联系人",required=True)
     contact_user_phone = fields.Char(string="联系电话",required=True)
+    contact_email = fields.Char(string="联系邮箱")
     preemption = fields.Integer(default=0)
     priority = fields.Char(default="高优先级")
     close_date = fields.Datetime(string="关闭时间")
