@@ -56,6 +56,7 @@
                         <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <!--<field name="case_type_note" string = "case类型说明" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>-->
+                        <field name="group_id" invisible="True"/>
                         <field name="case_oem_no" attrs="{'readonly':[('group_id','!=',%(base.group_server_desk_tac1)d)]}"/>
                         <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','customer_feedback')]}"/>
                     </group>
