@@ -222,14 +222,14 @@
                         <page string="处理过程与客户反馈">
                             <field name="feedback_ids" >
                                 <tree string="Registered feedback" editable="top">
-                                    <field name="processor_id" string = "处理人" readonly = "True"/>
-                                    <field name="state" string="处理阶段" readonly="True"/>
-                                    <field name = "record" string = "处理记录" attrs="{'editable':[('processor_id','=','uid'),('create_date','=',None)]}"/>
-                                    <field name = "create_date" string = "处理时间" readonly = "True"/>
-                                    <field name = "feedback_user_id" string = "反馈人" readonly="True"/>
-                                    <field name = "result" string = "处理结果"  readonly="True"/>
-                                    <field name = "note" string = "反馈描述" readonly="True"/>
-                                    <field name = "feedback_time" string = "反馈时间" readonly="True"/>
+                                    <field name="processor_id" string = "处理人" />
+                                    <field name="state" string="处理阶段" />
+                                    <field name = "record" string = "处理记录" />
+                                    <field name = "create_date" string = "处理时间" />
+                                    <field name = "feedback_user_id" string = "反馈人" />
+                                    <field name = "result" string = "处理结果"  />
+                                    <field name = "note" string = "反馈描述" />
+                                    <field name = "feedback_time" string = "反馈时间" />
                                 </tree>
                             </field>
                         </page>
