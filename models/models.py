@@ -477,7 +477,7 @@ class Case(models.Model):
     @api.model
     def _needaction_domain_get(self):
         if self._context.get('count_action') == 'pending':
-            return [('user_id', '=', self.env.uid), ('state', '!=', 'done')]
+            return [('user_id.id', '=', self.env.uid), ('state', '!=', 'done')]
         return [('state', '=', '111')]
 
 
