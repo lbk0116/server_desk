@@ -208,8 +208,8 @@
 
                     </group>
                     <group>
-                        <field name="create_date" string="创建时间" readonly = "True"/>
-                        <field name="write_date" string="更新时间" readonly = "True"/>
+                        <field name="create_date" string="创建时间" />
+                        <field name="write_date" string="更新时间" />
                         <field name="close_date" string="关闭时间" />
                         <field name="start_time" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                         <field name="end_time" attrs="{'invisible':[('case_type','!=','standby')]}"/>
