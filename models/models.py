@@ -478,7 +478,7 @@ class Case(models.Model):
     def _needaction_domain_get(self):
         if self._context.get('count_action') == 'pending':
             return [('user_id.id', '=', self.env.uid), ('state', '!=', 'done')]
-        return [('state', '=', '111')]
+        return [('user_id.id', '=', self.env.uid), ('state', '!=', 'done')]
 
 
 class Feedback(models.Model):
