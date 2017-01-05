@@ -498,10 +498,14 @@
                 <search string="Search">
                     <field name="name" string="Case"/> 
                     <filter string="已解决" name="done" domain="[('state', '=','done')]"/>
-                    <filter string="Tac处理" name="tac" domain="[('state', '=','tac')]"/>
+                    <filter string="坐席处理" name="cds" domain="[('state', '=','cds')]"/>
+                    <filter string="Tac一线处理" name="tac1" domain="[('state', '=','tac1')]"/>
+                    <filter string="Tac二线处理" name="tac2" domain="[('state', '=','tac2')]"/>
                     <filter string="专家处理" name="master" domain="[('state', '=','master')]"/>
                     <filter string="厂商处理" name="oem" domain="[('state', '=', 'oem')]"/>
                     <filter string="客户反馈" name="customer_feedback" domain="[('state','=','customer_feedback')]"/>
+                    <filter string="审核" name="audit" domain="[('state', '=','audit')]"/>
+                    <filter string="进行中" name="doing" domain="[('state', '!=','done'),('state', '!=','new')]"/>
                     <separator/>
                     <group expand="0" string="分组">
                         <filter string="客户" name="Partner" context="{'group_by':'customer_id'}"/>
