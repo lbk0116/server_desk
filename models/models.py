@@ -88,7 +88,7 @@ class Case(models.Model):
     applicant_way = fields.Char(string="申请方式",default=lambda self: self._get_app_way_def())
     SN_char = fields.Char(string="SN")
     SN = fields.Many2one('server_desk.equipment',string="SN",required = True)
-    customer_id = fields.Many2one(related='SN.customer', string="客户",readonly=1, domain=[('category', '=', u'case客户')])
+    customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')], store=True)
     # SN_customer = fields.Many2one(related='SN.customer',string="SN客户",domain=[('category','=',u'case客户')])
     contract_id = fields.Many2one(related='SN.contract',string="合同",readonly=1)
     product = fields.Char(compute='get_product',tring="产品型号",readonly=1,store= True)

@@ -273,6 +273,7 @@
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
+                    <field name="customer_id" string = "客户" />
                     <field name="product" string="产品型号"/>
                     <field name="case_oem_no" string="厂商case编号"/>
                     <field name="contact_user" string = "故障联系人"  />
@@ -291,9 +292,10 @@
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
+                    <field name="customer_id" string = "客户" />
                     <field name="product" string="产品型号"/>
                     <field name="case_oem_no" string="厂商case编号"/>
-                      <field name="contact_user" string = "故障联系人"  />
+                    <field name="contact_user" string = "故障联系人"  />
                     <field name="case_type" string = "case类型"/>
                     <field name="state" string = "当前状态"/>
                     <field name="user_id" string="当前处理人"/>
