@@ -441,7 +441,7 @@ class Case(models.Model):
         self.state = 'audit'
         self.product_id = self.env['res.groups'].search([('name','=','product_manager_group')]).users[0]
         data = [self.case_id, self.product, self.case_title]
-        self.send_email([self.user_id],data)
+        self.send_email([self.product_id],data)
         self.user_id = self.env['res.groups'].search([('name', '=', 'product_manager_group')]).users[0]
 
     @api.one
