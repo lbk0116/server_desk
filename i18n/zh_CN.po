@@ -180,6 +180,12 @@ msgid "partner_group"
 msgstr "客户"
 
 #. module: server_desk
+#: model:res.groups,name:base.group_server_desk_user
+msgid "user_group"
+msgstr "用户"
+
+
+#. module: server_desk
 #: model:res.groups,name:base.group_server_desk_cds
 msgid "cds_group"
 msgstr "服务台"

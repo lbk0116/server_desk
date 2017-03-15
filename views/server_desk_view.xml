@@ -24,8 +24,7 @@
         <field name="arch" type="xml">
             <form string="Case Form" >
                 <header>
-                    
-                    <button name="set_to_cds" type="workflow" string="提交" states="new" class="oe_highlight" groups="base.group_server_desk_partner"/>
+                    <button name="set_to_cds" type="workflow" string="提交" states="new" class="oe_highlight" groups="base.group_server_desk_partner,base.group_server_desk_user"/>
                     <button name="set_to_tac1" type="workflow" string="转TAC一线团队" states="cds,new" class="oe_highlight" groups="base.group_server_desk_cds"/>
                     <button name="set_to_tac2" type="workflow" string="转TAC二线团队" states="customer_feedback" class="oe_highlight" groups="base.group_server_desk_tac1"/>
                     <button name="set_to_master" type="workflow" string="转专家团队" states="customer_feedback" class="oe_highlight" groups="base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
@@ -50,7 +49,7 @@
                         <!--<field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' on_change="onchange_SN_char(SN)" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','!=','new')]}" />-->
                         <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' on_change="onchange_SN_char(SN)" invisible="True" />
                         <field name="SN_char" string = "SN" on_change="onchange_SN(SN_char)"  required = "True"  />
-                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
+                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         <field name="product" string="产品型号"/>
                         <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
@@ -126,7 +125,7 @@
                         <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="SN_char" string = "SN"/>
                         <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True"/>
-                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,    base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
+                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,    base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         <field name="product" string="产品型号"/>
                         <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>

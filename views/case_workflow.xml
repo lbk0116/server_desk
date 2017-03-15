@@ -93,6 +93,12 @@
             <field name="group_id" ref="base.group_server_desk_partner" />
             <field name="signal">set_to_cds</field>
         </record>
+        <record model="workflow.transition" id="server_desk_case_new_user_to_cds">
+            <field name="act_from" ref="server_desk_new" />
+            <field name="act_to" ref="server_desk_cds"/>
+            <field name="group_id" ref="base.group_server_desk_user" />
+            <field name="signal">set_to_cds</field>
+        </record>
         <record model="workflow.transition" id="server_desk_case_new_to_tac1">
             <field name="act_from" ref="server_desk_new" />
             <field name="act_to" ref="server_desk_tac1"/>

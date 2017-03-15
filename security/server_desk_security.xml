@@ -9,14 +9,19 @@
         <field name="name">cds_group</field>
         <field name="category_id" ref="base.module_category_server_desk"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">the user will be able to approve document created by cds.</field>
+    </record>
+    <record id="base.group_server_desk_user" model="res.groups">
+        <field name="name">user_group</field>
+        <field name="category_id" ref="base.module_category_server_desk"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         <field name="comment">the user will be able to approve document created by employees.</field>
     </record>
-
     <record id="base.group_server_desk_partner" model="res.groups">
         <field name="name">partner_group</field>
         <field name="category_id" ref="base.module_category_server_desk"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-        <field name="comment">the user will be able to approve document created by employees.</field>
+        <field name="comment">the user will be able to approve document created by partner.</field>
     </record>
     <record id="base.group_server_desk_tac1" model="res.groups">
         <field name="name">tac1_group</field>
@@ -152,7 +157,16 @@
         <field name="perm_create" eval="0"/>
         <field name="perm_unlink" eval="0"/>
     </record>
-
+    <record id="server_desk.case_user_read_rule" model="ir.rule">
+        <field name="name">Case规则-用户读</field>
+        <field name="model_id" ref="model_server_desk_case"/>
+        <field name="groups" eval="[(4,ref('base.group_server_desk_user'))]"/>
+        <field name="domain_force">[('applicant_id','=',user.id)]</field>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
 
     </data>
 </openerp>
