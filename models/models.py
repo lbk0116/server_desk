@@ -438,6 +438,8 @@ class Case(models.Model):
         if self.case_type != 'standby':
             if not self.solution or not self.error_name:
                 raise exceptions.ValidationError('转产品经理前，请填写解决方案与与故障原因')
+        if not self.judge_feedback():
+            raise exceptions.ValidationError('转下一步前，请填写处理结果及反馈描述')
         self.state = 'audit'
         self.product_id = self.env['res.groups'].search([('name','=','product_manager_group')]).users[0]
         data = [self.case_id, self.product, self.case_title]
