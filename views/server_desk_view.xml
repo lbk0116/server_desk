@@ -378,8 +378,66 @@
                             <field name="last_date_of_support" string = "EOS日期"/>
                             <field name="product_ship_date" string = "设备发货日期"/>
                         </group>
-                        </group>
-
+                    </group>
+                             <notebook>
+                            <page string="其他信息(一)">
+                                <group>
+                                    <group>
+                                            <field name="contract_label"/>
+                                            <field name="service_level_status"/>
+                                            <field name="bill_to_name"/>
+                                            <field name="bill_to_address"/>
+                                            <field name="bill_to_city"/>
+                                            <field name="bill_to_postal_code"/>
+                                            <field name="bill_to_country"/>
+                                            <field name="bill_to_phone"/>
+                                            <field name="bill_to_email"/>
+                                             <field name="site_id"/>
+                                             <field name="site_address"/>
+                                     </group>
+                                    <group>
+                                            <field name="site_address_line2"/>
+                                            <field name="site_address_line3"/>
+                                            <field name="site_city"/>
+                                            <field name="site_state"/>
+                                            <field name="site_postal_code"/>
+                                            <field name="site_country"/>
+                                            <field name="site_parent_company_name"/>
+                                            <field name="site_email"/>
+                                            <field name="site_notes"/>
+                                            <field name="site_label"/>
+                                            <field name="site_contact"/>
+                                            <field name="site_phone"/>
+                                     </group>
+                                </group>
+                            </page>
+                            <page string="其他信息(二)">
+                                <group>
+                                        <group>
+                                             <field name="distributor_bill_to_id"/>
+                                             <field name="distributor_bill_to_name"/>
+                                             <field name="product_quantity"/>
+                                             <field name="priority_item"/>
+                                             <field name="host_id"/>
+                                             <field name="instance_number"/>
+                                             <field name="parent_instance_number"/>
+                                             <field name="product_label"/>
+                                             <field name="product_type"/>
+                                         </group>
+                                        <group>
+                                            <field name="covered_product_status"/>
+                                            <field name="product_so_number"/>
+                                            <field name="product_po_number"/>
+                                            <field name="maintenance_so_number"/>
+                                            <field name="maintenance_po_number"/>
+                                            <field name="do_not_renew_reason_code"/>
+                                            <field name="warranty_type"/>
+                                            <field name="warranty_end_date"/>
+                                            <field name="shipment_delivery_notice"/>
+                                        </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

@@ -33,7 +33,48 @@ class equipment(models.Model):
     end_date = fields.Date(string="END DATE") #维保结束日期
     last_date_of_support = fields.Date(string="LAST DATE OF SUPPORT") #EOS日期
     product_ship_date = fields.Date(string="PRODUCT SHIP DATE") #产品发货日期
-
+    contract_label  = fields.Char(string="CONTRACT LABEL") #
+    service_level_status  = fields.Char(string="SERVICE LEVEL STATUS") #
+    bill_to_name  = fields.Char(string="BILL TO NAME") #
+    bill_to_address  = fields.Char(string="BILL TO ADDRESS") #
+    bill_to_city  = fields.Char(string="BILL TO CITY / PROVINCE") #
+    bill_to_postal_code  = fields.Char(string="BILL TO POSTAL CODE") #
+    bill_to_country  = fields.Char(string="BILL TO COUNTRY") #
+    bill_to_phone  = fields.Char(string="BILL-TO PHONE") #
+    bill_to_email  = fields.Char(string="BILL-TO EMAIL") #
+    site_id  = fields.Char(string="SITE ID") #
+    site_address  = fields.Char(string="SITE ADDRESS") #
+    site_address_line2  = fields.Char(string="SITE ADDRESS LINE2") #
+    site_address_line3  = fields.Char(string="SITE ADDRESS LINE3") #
+    site_city  = fields.Char(string="SITE CITY") #
+    site_state = fields.Char(string="SITE STATE / PROVINCE") #
+    site_postal_code  = fields.Char(string="SITE POSTAL CODE") #
+    site_country  = fields.Char(string="SITE COUNTRY") #
+    site_parent_company_name  = fields.Char(string="SITE PARENT COMPANY NAME") #
+    site_email  = fields.Char(string="SITE EMAIL") #
+    site_parent_company_id  = fields.Char(string="SITE PARENT COMPANY ID") #
+    site_notes  = fields.Char(string="SITE NOTES") #
+    site_label  = fields.Char(string="SITE LABEL") #
+    site_contact  = fields.Char(string="SITE CONTACT") #
+    site_phone  = fields.Char(string="SITE PHONE") #
+    distributor_bill_to_id  = fields.Char(string="DISTRIBUTOR BILL TO ID") #
+    distributor_bill_to_name  = fields.Char(string="DISTRIBUTOR BILL TO NAME") #
+    product_quantity  = fields.Char(string="PRODUCT QUANTITY") #
+    priority_item = fields.Char(string="PRIORITY ITEM (GROUP S)") #
+    host_id  = fields.Char(string="HOST ID") #
+    instance_number  = fields.Char(string="INSTANCE NUMBER") #
+    parent_instance_number  = fields.Char(string="PARENT INSTANCE NUMBER") #
+    product_label  = fields.Char(string="PRODUCT LABEL") #
+    product_type  = fields.Char(string="PRODUCT TYPE") #
+    covered_product_status  = fields.Char(string="COVERED PRODUCT STATUS") #
+    product_so_number  = fields.Char(string="PRODUCT SO NUMBER") #
+    product_po_number  = fields.Char(string="PRODUCT PO NUMBER") #
+    maintenance_so_number  = fields.Char(string="MAINTENANCE SO NUMBER") #
+    maintenance_po_number  = fields.Char(string="MAINTENANCE PO NUMBER") #
+    do_not_renew_reason_code  = fields.Char(string="DO NOT RENEW REASON CODE") #
+    warranty_type  = fields.Char(string="WARRANTY TYPE") #
+    warranty_end_date  = fields.Date(string="WARRANTY END DATE") #
+    shipment_delivery_notice  = fields.Char(string="SHIPMENT DELIVERY NOTICE") #
 
 class Contract(models.Model):
     _name ='server_desk.contract'
