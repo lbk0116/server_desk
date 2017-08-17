@@ -101,7 +101,6 @@ class Contract(models.Model):
     @api.multi
     @api.depends('equipment_ids')
     def _count_time(self):
-
         for record in self:
             if len(record.equipment_ids):
                 record.start_time = record.equipment_ids[0].begin_date
@@ -127,10 +126,6 @@ class Case(models.Model):
     case_id = fields.Char(required=True)
     applicant_id = fields.Many2one('res.users', string="申请人",required=True,default=lambda self: self.env.user)
     applicant_way = fields.Char(string="申请方式",default=lambda self: self._get_app_way_def())
-    SN_char = fields.Char(string="SN")
-    SN = fields.Many2one('server_desk.equipment',string="SN",required = True)
-    customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')], store=True)
-    # SN_customer = fields.Many2one(related='SN.customer',string="SN客户",domain=[('category','=',u'case客户')])
     contract_id = fields.Many2one(related='SN.contract',string="合同",readonly=1)
     product = fields.Char(compute='get_product',tring="产品型号",readonly=1,store= True)
     case_type = fields.Selection([('Technology diagnosis','技术诊断'),('Technical consulting','技术咨询'),('RMA','RMA'),('DOA','DOA'),('standby','standby')],default='Technology diagnosis',string="case类型",required=True)
@@ -178,6 +173,20 @@ class Case(models.Model):
     solution = fields.Text()
     next_group = fields.Selection([('ACS\CDN',"ACS\CDN"),
         (u'交换机\路由器',u"交换机\路由器"),])
+    SN_char = fields.Char(string="SN")
+    SN = fields.Many2one('server_desk.equipment', string="SN", required=True)
+    customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')],
+                                  store=True)
+    # SN_customer = fields.Many2one(related='SN.customer',string="SN客户",domain=[('category','=',u'case客户')])
+    # 对case进行维保服务平台的设备和合同进行关联
+    # SN_wbfw = fields.Many2one('nantian_wbfw.equipment',string="维保合同的设备",compute = "_verify_contract_id",store = "True")#
+    # contract_wbfw = fields.Many2one('nantian_wbfw.maintenance_contract',compute = "_verify_contract_id", string="维保合同",store = "True")
+
+    eq_wbfw_id = fields.Many2one('nantian_wbfw.equipment', string="维保合同的设备", store="True")# compute="_verify_contract_id",
+    contract_wbfw_id = fields.Many2one('nantian_wbfw.maintenance_contract', string="维保合同",store="True")
+
+
+
     def pop_window(self, cr, uid, ids, context=None):
         mod_obj = self.pool.get('ir.model.data')
         form_res = mod_obj.get_object_reference(cr, uid, 'server_desk', 'case_change_SN_view')
@@ -198,7 +207,6 @@ class Case(models.Model):
     @api.multi
     def onchange_SN(self,SN_char):
         result = {'value': {}}
-
         if SN_char:
             print SN_char
             get_sn = self.env['server_desk.equipment'].search([('SN','=',SN_char)],limit=1)
@@ -208,10 +216,10 @@ class Case(models.Model):
             else:
                 raise exceptions.ValidationError('SN号不存在或已过保')
 
+
     @api.multi
     def onchange_SN_char(self, SN):
         result = {'value': {}}
-
         if SN:
             print SN
             get_sn = self.env['server_desk.equipment'].search([('id', '=', SN)], limit=1)
@@ -232,17 +240,20 @@ class Case(models.Model):
             return "电话"
         return "Web"
 
-    @api.depends('SN')
-    @api.one
+    @api.multi
+    @api.depends('SN',"SN_char")
     def _verify_contract_id(self):
-        if self.SN:
-            equipment=self.env['server_desk.equipment'].search([('SN','=',self.SN)])
-            if equipment:
-                if equipment[0].contract in self.env['server_desk.contract'].search([]):
-                    self.contract_id = equipment[0].contract
-                    self.product = equipment[0].product
-                    return
-            raise exceptions.ValidationError('SN号不存在或已过保')
+        for record in self:
+            ###########################
+            # 服务台开case时先验证到服务台设备里有没有存在并且不过期,现因维保服务平台的需要，
+            # 需要确定维保服务里的存在的设备存在
+            ###########################
+            get_sn_wbfw = self.env['nantian_wbfw.equipment'].search(["|", ('SN', '=', record.SN_char), ('SN', '=', record.SN)])
+            if get_sn_wbfw and fields.Date.from_string(get_sn_wbfw.end_date) >= fields.date.today():
+                record.eq_wbfw_id = get_sn_wbfw[-1].id
+                record.contract_wbfw_id = get_sn_wbfw[-1].contract_id.id
+            else:
+                raise exceptions.ValidationError('SN号不存在或已过保')
 
     # @api.one
     # def _compute_applicant_way(self):
