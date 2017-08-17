@@ -16,11 +16,13 @@
 
         <record id="action_server_desk_all_case_tree" model="ir.actions.act_window.view">
             <field name="view_mode">tree</field>
+            <field name="sequence" eval="1" />
             <field name="view_id" ref="case_tree_view" />
             <field name="act_window_id" ref="server_desk_case_list_action" />
         </record>
         <record id="action_server_desk_all_case_form" model="ir.actions.act_window.view">
             <field name="view_mode">form</field>
+            <field name="sequence" eval="10" />
             <field name="view_id" ref="case_form_view" />
             <field name="act_window_id" ref="server_desk_case_list_action" />
         </record>
@@ -37,11 +39,13 @@
         </record>
         <record id="action_server_desk_admin_all_case_tree" model="ir.actions.act_window.view">
             <field name="view_mode">tree</field>
+            <field name="sequence" eval="1" />
             <field name="view_id" ref="case_tree_view" />
             <field name="act_window_id" ref="server_desk_case_admin_list_action" />
         </record>
         <record id="action_server_desk_admin_all_case_form" model="ir.actions.act_window.view">
             <field name="view_mode">form</field>
+            <field name="sequence" eval="10" />
             <field name="view_id" ref="case_admin_form_view" />
             <field name="act_window_id" ref="server_desk_case_admin_list_action" />
         </record>
@@ -163,11 +167,13 @@
 
         <record id="nantian_case_tree_partner_action" model="ir.actions.act_window.view">
             <field name="view_mode">tree</field>
+            <field name="sequence" eval="1" />
             <field name="view_id" ref="base.view_partner_tree" />
             <field name="act_window_id" ref="nantian_case_partner_action" />
         </record>
         <record id="nantian_case_form_partner_action" model="ir.actions.act_window.view">
             <field name="view_mode">form</field>
+            <field name="sequence" eval="10" />
             <field name="view_id" ref="nantian_case_partner_form" />
             <field name="act_window_id" ref="nantian_case_partner_action" />
         </record>
@@ -181,11 +187,13 @@
         </record>
         <record id="nantian_partner_case_tree_partner_action" model="ir.actions.act_window.view">
             <field name="view_mode">tree</field>
+            <field name="sequence" eval="1" />
             <field name="view_id" ref="base.view_partner_tree" />
             <field name="act_window_id" ref="nantian_partner_case_partner_action" />
         </record>
         <record id="nantian_partner_case_form_partner_action" model="ir.actions.act_window.view">
             <field name="view_mode">form</field>
+            <field name="sequence" eval="10" />
             <field name="view_id" ref="nantian_case_partner_form" />
             <field name="act_window_id" ref="nantian_partner_case_partner_action" />
         </record>
