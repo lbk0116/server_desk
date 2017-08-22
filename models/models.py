@@ -126,9 +126,11 @@ class Case(models.Model):
     case_id = fields.Char(required=True)
     applicant_id = fields.Many2one('res.users', string="申请人",required=True,default=lambda self: self.env.user)
     applicant_way = fields.Char(string="申请方式",default=lambda self: self._get_app_way_def())
-    contract_id = fields.Many2one(related='SN.contract',string="合同",readonly=1)
-    product = fields.Char(compute='get_product',tring="产品型号",readonly=1,store= True)
-    case_type = fields.Selection([('Technology diagnosis','技术诊断'),('Technical consulting','技术咨询'),('RMA','RMA'),('DOA','DOA'),('standby','standby')],default='Technology diagnosis',string="case类型",required=True)
+    case_type = fields.Selection([('Technology diagnosis','技术诊断'),
+                                  ('Technical consulting','技术咨询'),
+                                  ('RMA','RMA'),
+                                  ('DOA','DOA'),
+                                  ('standby','standby')],default='Technology diagnosis',string="case类型",required=True)
     case_level = fields.Selection([('level1','1'),('level2','2'),('level3','3'),('level4','4')],default='level1')
     case_type_note = fields.Text(string="case类型说明")
     user_id = fields.Many2one('res.users', string="当前处理人",default=lambda self: self.env.user)
@@ -173,20 +175,19 @@ class Case(models.Model):
     solution = fields.Text()
     next_group = fields.Selection([('ACS\CDN',"ACS\CDN"),
         (u'交换机\路由器',u"交换机\路由器"),])
+    #  以下这些字段，跟维保服务平台并行
     SN_char = fields.Char(string="SN")
-    SN = fields.Many2one('server_desk.equipment', string="SN", required=True)
-    customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')],
-                                  store=True)
-    # SN_customer = fields.Many2one(related='SN.customer',string="SN客户",domain=[('category','=',u'case客户')])
-    # 对case进行维保服务平台的设备和合同进行关联
-    # SN_wbfw = fields.Many2one('nantian_wbfw.equipment',string="维保合同的设备",compute = "_verify_contract_id",store = "True")#
-    # contract_wbfw = fields.Many2one('nantian_wbfw.maintenance_contract',compute = "_verify_contract_id", string="维保合同",store = "True")
+    contract_id = fields.Many2one("server_desk.contract",string="合同",readonly=1)
+    SN = fields.Many2one('server_desk.equipment',string="SN",)
+    customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')],store=True)
+    product = fields.Char(string="PRODUCT NUMBER")  # 产品型号
 
     eq_wbfw_id = fields.Many2one('nantian_wbfw.equipment', string="维保合同的设备", store="True")# compute="_verify_contract_id",
     contract_wbfw_id = fields.Many2one('nantian_wbfw.maintenance_contract', string="维保合同",store="True")
+    customer_wbfw = fields.Char(string="客户")
+    product_wbfw = fields.Char(string="产品型号")
 
-
-
+    # 还没写完的RMA功能
     def pop_window(self, cr, uid, ids, context=None):
         mod_obj = self.pool.get('ir.model.data')
         form_res = mod_obj.get_object_reference(cr, uid, 'server_desk', 'case_change_SN_view')
@@ -200,35 +201,36 @@ class Case(models.Model):
         }
         return value
 
-    @api.depends('SN.product')
-    def get_product(self):
-        for record in self:
-            record.product = record.SN.product
+
+
     @api.multi
     def onchange_SN(self,SN_char):
         result = {'value': {}}
         if SN_char:
-            print SN_char
             get_sn = self.env['server_desk.equipment'].search([('SN','=',SN_char)],limit=1)
-            if get_sn and fields.Date.from_string(get_sn.end_date) >= fields.date.today():
-                result['value']['SN']=get_sn.id
+            get_wbfw_sn = self.env['nantian_wbfw.equipment'].search([('SN','=',SN_char)])
+            if get_sn or get_wbfw_sn:
+                if get_wbfw_sn:
+                    if fields.Date.from_string(get_wbfw_sn.end_date) >= fields.date.today():
+                        result['value']['eq_wbfw_id'] = get_wbfw_sn.id
+                        result['value']['contract_wbfw_id'] = get_wbfw_sn.contract_id.id
+                        result['value']['customer_wbfw'] = get_wbfw_sn.customer
+                        result['value']['product_wbfw'] = get_wbfw_sn.type
+                    else:
+                        raise exceptions.ValidationError('SN号已过保')
+                elif get_sn:
+                    if fields.Date.from_string(get_sn.end_date) >= fields.date.today():
+                        result['value']['SN'] = get_sn.id
+                        result['value']['customer_id'] = get_sn.customer.id
+                        result['value']['contract_id'] = get_sn.contract.id
+                        result['value']['product'] = get_wbfw_sn.product
+                    else:
+                        raise exceptions.ValidationError('SN号已过保')
                 return result
             else:
-                raise exceptions.ValidationError('SN号不存在或已过保')
+                raise exceptions.ValidationError('SN号不存在')
 
 
-    @api.multi
-    def onchange_SN_char(self, SN):
-        result = {'value': {}}
-        if SN:
-            print SN
-            get_sn = self.env['server_desk.equipment'].search([('id', '=', SN)], limit=1)
-            if get_sn and fields.Date.from_string(get_sn.end_date) >= fields.date.today():
-                result['value']['SN_char'] = get_sn.SN
-                result['value']['customer_id'] = get_sn.customer.id
-                return result
-            else:
-                raise exceptions.ValidationError('SN号不存在或已过保')
 
     def change_SN(self, cr, uid, ids, *args):
         return self.pop_window(cr, uid, ids, None)
@@ -240,27 +242,6 @@ class Case(models.Model):
             return "电话"
         return "Web"
 
-    @api.multi
-    @api.depends('SN',"SN_char")
-    def _verify_contract_id(self):
-        for record in self:
-            ###########################
-            # 服务台开case时先验证到服务台设备里有没有存在并且不过期,现因维保服务平台的需要，
-            # 需要确定维保服务里的存在的设备存在
-            ###########################
-            get_sn_wbfw = self.env['nantian_wbfw.equipment'].search(["|", ('SN', '=', record.SN_char), ('SN', '=', record.SN)])
-            if get_sn_wbfw and fields.Date.from_string(get_sn_wbfw.end_date) >= fields.date.today():
-                record.eq_wbfw_id = get_sn_wbfw[-1].id
-                record.contract_wbfw_id = get_sn_wbfw[-1].contract_id.id
-            else:
-                raise exceptions.ValidationError('SN号不存在或已过保')
-
-    # @api.one
-    # def _compute_applicant_way(self):
-    #     if  self.env['res.groups'].search([('name','=','cds_group')]) in self.env.user.groups_id:
-    #         self.applicant_way = 'phone'
-    #     else:
-    #         self.applicant_way = 'WEB'
 
     def send_email(self,cr,uid,users,data=[],context=None):
             template_model = self.pool.get('email.template')
@@ -498,18 +479,6 @@ class Case(models.Model):
         self.send_email([self.product_id],data)
         self.user_id = self.env['res.groups'].search([('name', '=', 'product_manager_group')]).users[0]
 
-    @api.one
-    @api.constrains('SN', 'SN_char')
-    def _check_SN(self):
-        if self.SN:
-            get_sn = self.env['server_desk.equipment'].search([('id', '=',self.SN.id)], limit=1)
-            if get_sn and fields.Date.from_string(get_sn.end_date) < fields.date.today():
-                raise exceptions.ValidationError('SN号不存在或已过保')
-        if self.SN_char:
-            get_sn = self.env['server_desk.equipment'].search([('SN', '=', self.SN_char)], limit=1)
-            if get_sn and fields.Date.from_string(get_sn.end_date) < fields.date.today():
-                raise exceptions.ValidationError('SN号不存在或已过保')
-
 
     def create(self, cr, uid, vals, context=None):
         dates= fields.Date.today().split('-')
@@ -524,9 +493,7 @@ class Case(models.Model):
         else:
             vals['case_id']='C'+date+'001'
         return super(Case,self).create(cr,uid,vals,context=context)
-    def start_ma(self):
-        if self.SN:
-            pass
+
 
     @api.model
     def _needaction_domain_get(self):
