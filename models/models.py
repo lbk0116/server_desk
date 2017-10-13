@@ -175,6 +175,7 @@ class Case(models.Model):
     solution = fields.Text()
     next_group = fields.Selection([('ACS\CDN',"ACS\CDN"),
         (u'交换机\路由器',u"交换机\路由器"),])
+
     #  以下这些字段，跟维保服务平台并行
     SN_char = fields.Char(string="SN")
     contract_id = fields.Many2one("server_desk.contract",string="合同",readonly=1)
@@ -223,7 +224,7 @@ class Case(models.Model):
                         result['value']['SN'] = get_sn.id
                         result['value']['customer_id'] = get_sn.customer.id
                         result['value']['contract_id'] = get_sn.contract.id
-                        result['value']['product'] = get_wbfw_sn.product
+                        result['value']['product'] = get_sn.product
                     else:
                         raise exceptions.ValidationError('SN号已过保')
                 return result
