@@ -46,10 +46,10 @@
                                 <field name="contact_user" string = "故障联系人" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" />
                                 <field name="contact_user_phone" string = "联系电话" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                 <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                                <field name="SN_char" string = "SN" on_change="onchange_SN(SN_char)"  required = "True"  />
+                                <field name="SN_char" string = "SerialNumber" on_change="onchange_SN(SN_char)"  required = "True"  />
                                 <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                 <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                                <!--<field name="case_type_note" string = "case类型说明" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>-->
+                                <field name="server_type" string = "服务类型"/>
                                 <field name="group_id" invisible="True"/>
                                 <field name="case_oem_no" attrs="{'readonly':[('group_id','!=',%(base.group_server_desk_tac1)d)]}"/>
                                 <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','customer_feedback')]}"/>
@@ -134,10 +134,10 @@
                         <field name="contact_user" string = "故障联系人" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_user_phone" string = "联系电话" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                        <field name="SN_char" string = "SN"/>
+                        <field name="SN_char" string = "SerialNumber"/>
                         <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                        <!--<field name="case_type_note" string = "case类型说明" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>-->
+                        <field name="server_type" string = "服务类型"/>
                         <field name="case_oem_no" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','oem')]}"/>
                     </group>
@@ -219,9 +219,10 @@
                         <field name="contact_user" string = "故障联系人" />
                         <field name="contact_user_phone" string = "联系电话" />
                         <field name="contact_email" string = "联系邮箱" />
-                        <field name="SN_char" string = "SN" readonly="True"/>
+                        <field name="SN_char" string = "SerialNumber" readonly="True"/>
                         <field name="case_level" string = "case级别" />
                         <field name="case_type" string = "case类型" />
+                        <field name="server_type" string = "服务类型"/>
                         <!--<field name="case_type_note" string = "case类型说明" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>-->
                         <field name="case_oem_no" />
 
@@ -303,7 +304,7 @@
             <field name="name">case.tree</field>
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml" >
-                <tree string="Case Tree" create="false" edit="false" >
+                <tree string="Case Tree" create="false" edit="false" default_order="id desc">
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
@@ -312,6 +313,7 @@
                     <field name="case_oem_no" string="厂商case编号"/>
                     <field name="contact_user" string = "故障联系人"  />
                     <field name="case_type" string = "case类型"/>
+                    <field name="server_type" string = "服务类型"/>
                     <field name="state" string = "当前状态"/>
                     <field name="user_id" string="当前处理人"/>
                     <field name="write_date" string="更新时间"/>
@@ -322,7 +324,7 @@
             <field name="name">case.pending_tree</field>
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml">
-                <tree string="Case Tree" >
+                <tree string="Case Tree" default_order="id desc">
                     <field name="case_id" string="case号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
@@ -331,6 +333,7 @@
                     <field name="case_oem_no" string="厂商case编号"/>
                     <field name="contact_user" string = "故障联系人"  />
                     <field name="case_type" string = "case类型"/>
+                    <field name="server_type" string = "服务类型"/>
                     <field name="state" string = "当前状态"/>
                     <field name="user_id" string="当前处理人"/>
                     <field name="write_date" string="更新时间"/>
@@ -606,7 +609,8 @@
                         <filter string="客户" name="Partner" context="{'group_by':'customer_id'}"/>
                         <filter string="申请人" name="applicant_id" context="{'group_by':'applicant_id'}"/>
                         <filter string="类型" name="case_type" context="{'group_by':'case_type'}"/>
-                        <filter string="处理组" name="group" context="{'group_by':'group_id','visible':True}"/> 
+                        <filter string="服务类型" name="group" context="{'group_by':'server_type'}"/>
+                        <filter string="处理组" name="group" context="{'group_by':'group_id','visible':True}"/>
                         <filter string="优先级" name="priority" context="{'group_by':'priority'}"/>
                     </group>
                 </search>

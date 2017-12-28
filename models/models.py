@@ -131,6 +131,7 @@ class Case(models.Model):
                                   ('RMA','RMA'),
                                   ('DOA','DOA'),
                                   ('standby','standby')],default='Technology diagnosis',string="case类型",required=True)
+    server_type = fields.Many2one('server_desk.server_type',string="服务类型")
     case_level = fields.Selection([('level1','1'),('level2','2'),('level3','3'),('level4','4')],default='level1')
     case_type_note = fields.Text(string="case类型说明")
     user_id = fields.Many2one('res.users', string="当前处理人",default=lambda self: self.env.user)
@@ -177,13 +178,13 @@ class Case(models.Model):
         (u'交换机\路由器',u"交换机\路由器"),])
 
     #  以下这些字段，跟维保服务平台并行
-    SN_char = fields.Char(string="SN")
+    SN_char = fields.Char(string="SN_char")
     contract_id = fields.Many2one("server_desk.contract",string="合同",readonly=1)
-    SN = fields.Many2one('server_desk.equipment',string="SN",)
+    SN = fields.Many2one('server_desk.equipment',string="SN")
     customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')],store=True)
     product = fields.Char(string="PRODUCT NUMBER")  # 产品型号
 
-    eq_wbfw_id = fields.Many2one('nantian_wbfw.equipment', string="维保合同的设备", store="True")# compute="_verify_contract_id",
+    eq_wbfw_id = fields.Many2one('nantian_wbfw.equipment',string="维保合同的设备", store="True")# compute="_verify_contract_id",
     contract_wbfw_id = fields.Many2one('nantian_wbfw.maintenance_contract', string="维保合同",store="True")
     customer_wbfw = fields.Char(string="客户")
     product_wbfw = fields.Char(string="产品型号")
@@ -499,6 +500,12 @@ class Case(models.Model):
     @api.model
     def _needaction_domain_get(self):
         return [('user_id.id', '=', self.env.uid), ('state', '!=', 'done')]
+
+class ServerType(models.Model):
+    _name = 'server_desk.server_type'
+    _rec_name = 'name'
+
+    name = fields.Char(string="类型")
 
 
 class Feedback(models.Model):
