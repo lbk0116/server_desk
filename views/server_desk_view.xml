@@ -216,6 +216,7 @@
                         <field name="case_id" string="case编号" readonly="True"/>
                         <field name="case_title"/>
                         <field name="case_level" string = "case级别" />
+                        <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_user" string = "故障联系人" />
                         <field name="contact_user_phone" string = "联系电话" />
                         <field name="contact_email" string = "联系邮箱" />
