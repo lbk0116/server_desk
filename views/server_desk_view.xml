@@ -61,7 +61,7 @@
                                 <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                <field name="create_date" string="创建时间" readonly = "True"/>
                                 <field name="write_date" string="更新时间" readonly = "True"/>
-                                <field name="close_date" string="关闭时间" attrs="{'readony':[('case_type','!=','standby')]}"  />
+                                <field name="close_date" string="关闭时间" attrs="{'readonly':[('case_type','!=','standby')]}"  />
                                 <field name="start_time" string="开始时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                                 <field name="end_time" string="结束时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                             </group>
