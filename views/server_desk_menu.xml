@@ -56,7 +56,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('user_id','=',uid),('state','!=','done')]</field>
-            <field name="context">{"search_default_priority":1,"count_action":"pending"}</field>
+            <field name="context">{"count_action":"pending"}</field>
         </record>
 
         

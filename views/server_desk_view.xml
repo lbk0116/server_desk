@@ -39,24 +39,26 @@
                 <sheet>
                 <group >
                     <group>
+                                <field name="case_id" string="case编号" readonly="True"/>
                                     <field name="is_oem" invisible="True"></field>
                                 <field name="case_title" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                <field name="applicant_id" string="申请人" readonly="True" />
-                                <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
+                                 <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
+                                <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                 <field name="contact_user" string = "故障联系人" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" />
                                 <field name="contact_user_phone" string = "联系电话" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                 <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                                <field name="SN_char" string = "SerialNumber" on_change="onchange_SN(SN_char)"  required = "True"  />
-                                <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                                <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                                <field name="server_type" string = "服务类型"/>
+                                <field name="SN_char" string = "设备序列号" on_change="onchange_SN(SN_char)"  required = "True"  />
+                               <field name="server_type" string = "服务类型"/>
                                 <field name="group_id" invisible="True"/>
-                                <field name="case_oem_no" attrs="{'readonly':[('group_id','!=',%(base.group_server_desk_tac1)d)]}"/>
+                                <field name="case_oem_no" attrs="{'readonly':['|',('group_id','!=',%(base.group_server_desk_tac1)d),('group_id','!=',%(base.group_server_desk_cds)d)]}"/>
                                 <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','customer_feedback')]}"/>
+                               <field name="product" string="产品型号"/>
 
                     </group>
 
                             <group>
+                                <field name="applicant_id" string="申请人" readonly="True" />
+                                <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                <field name="create_date" string="创建时间" readonly = "True"/>
                                 <field name="write_date" string="更新时间" readonly = "True"/>
                                 <field name="close_date" string="关闭时间" attrs="{'readony':[('case_type','!=','standby')]}"  />
@@ -69,13 +71,11 @@
                                     <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
                                     <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                     <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                    <field name="product" string="产品型号"/>
                         </group>
                         <group string  = "设备合同来源:第三方维保">
                                     <field name="eq_wbfw_id" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}'  invisible="True" />
                                     <field name="customer_wbfw" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                     <field name="contract_wbfw_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                    <field name="product_wbfw" string="产品型号"/>
                         </group>
                     </group>
                         <button name="%(server_desk_log_form_action)d" type="action" string="换SN" groups="base.group_server_desk_cds" attrs="{'invisible':[('state','==','new')]}"/>
@@ -128,20 +128,22 @@
                 <sheet>
                     <group>
                     <group>
+                        <field name="case_id" string="case编号" readonly="True"/>
                         <field name="case_title" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                        <field name="applicant_id" string="申请人" readonly="True"/>
-                        <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
+                         <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
+                        <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_user" string = "故障联系人" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_user_phone" string = "联系电话" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                        <field name="SN_char" string = "SerialNumber"/>
-                        <field name="case_level" string = "case级别" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
-                        <field name="case_type" string = "case类型" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
+                        <field name="SN_char" string = "设备序列号"/>
                         <field name="server_type" string = "服务类型"/>
+                        <field name="product" string="产品型号"/>
                         <field name="case_oem_no" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','oem')]}"/>
                     </group>
                     <group>
+                        <field name="applicant_id" string="申请人" readonly="True"/>
+                        <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="create_date" string="创建时间" readonly = "True"/>
                         <field name="write_date" string="更新时间" readonly = "True"/>
                         <field name="close_date" string="关闭时间" attrs="{'readony':[('case_type','!=','standby')]}"/>
@@ -154,13 +156,11 @@
                                         <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
                                         <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                        <field name="product" string="产品型号"/>
                             </group>
                             <group string  = "设备合同来源:第三方维保">
                                         <field name="eq_wbfw_id" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
                                         <field name="customer_wbfw" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                         <field name="contract_wbfw_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                        <field name="product_wbfw" string="产品型号"/>
                             </group>
 
                     </group>
@@ -213,21 +213,21 @@
                 <sheet>
                     <group>
                     <group>
+                        <field name="case_id" string="case编号" readonly="True"/>
                         <field name="case_title"/>
-                        <field name="applicant_id" string="申请人" />
-                        <field name="applicant_way" string = "申请方式" />
+                        <field name="case_level" string = "case级别" />
                         <field name="contact_user" string = "故障联系人" />
                         <field name="contact_user_phone" string = "联系电话" />
                         <field name="contact_email" string = "联系邮箱" />
-                        <field name="SN_char" string = "SerialNumber" readonly="True"/>
-                        <field name="case_level" string = "case级别" />
-                        <field name="case_type" string = "case类型" />
+                        <field name="SN_char" string = "设备序列号" readonly="True"/>
                         <field name="server_type" string = "服务类型"/>
                         <!--<field name="case_type_note" string = "case类型说明" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>-->
                         <field name="case_oem_no" />
-
+                        <field name="product" string="产品型号"/>
                     </group>
                     <group>
+                        <field name="applicant_id" string="申请人" />
+                        <field name="applicant_way" string = "申请方式" />
                         <field name="create_date" string="创建时间" />
                         <field name="write_date" string="更新时间" />
                         <field name="close_date" string="关闭时间" />
@@ -240,13 +240,11 @@
                                         <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
                                         <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                        <field name="product" string="产品型号"/>
                             </group>
                             <group string  = "设备合同来源:第三方维保">
                                         <field name="eq_wbfw_id" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
                                         <field name="customer_wbfw" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                         <field name="contract_wbfw_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
-                                        <field name="product_wbfw" string="产品型号"/>
                             </group>
 
                     </group>
@@ -305,10 +303,10 @@
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml" >
                 <tree string="Case Tree" create="false" edit="false" default_order="id desc">
-                    <field name="case_id" string="case号"/>
+                    <field name="case_id" string="case编号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
-                    <field name="customer_id" string = "客户" />
+                    <field name="view_customer" string = "客户" />
                     <field name="product" string="产品型号"/>
                     <field name="case_oem_no" string="厂商case编号"/>
                     <field name="contact_user" string = "故障联系人"  />
@@ -325,10 +323,10 @@
             <field name="model">server_desk.case</field>
             <field name="arch" type="xml">
                 <tree string="Case Tree" default_order="id desc">
-                    <field name="case_id" string="case号"/>
+                    <field name="case_id" string="case编号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
-                    <field name="customer_id" string = "客户" />
+                    <field name="view_customer" string = "客户" />
                     <field name="product" string="产品型号"/>
                     <field name="case_oem_no" string="厂商case编号"/>
                     <field name="contact_user" string = "故障联系人"  />

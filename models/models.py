@@ -123,7 +123,7 @@ class Case(models.Model):
             'server_desk.case_state':lambda self, cr, uid, obj, ctx=None: obj.state and obj.state != 'cds',
             },
     }
-    case_id = fields.Char(required=True)
+    case_id = fields.Char()
     applicant_id = fields.Many2one('res.users', string="申请人",required=True,default=lambda self: self.env.user)
     applicant_way = fields.Char(string="申请方式",default=lambda self: self._get_app_way_def())
     case_type = fields.Selection([('Technology diagnosis','技术诊断'),
@@ -182,12 +182,27 @@ class Case(models.Model):
     contract_id = fields.Many2one("server_desk.contract",string="合同",readonly=1)
     SN = fields.Many2one('server_desk.equipment',string="SN")
     customer_id = fields.Many2one(related='SN.customer', string="客户", readonly=1, domain=[('category', '=', u'case客户')],store=True)
-    product = fields.Char(string="PRODUCT NUMBER")  # 产品型号
+    product = fields.Char(string="产品型号")  # 产品型号
 
     eq_wbfw_id = fields.Many2one('nantian_wbfw.equipment',string="维保合同的设备", store="True")# compute="_verify_contract_id",
     contract_wbfw_id = fields.Many2one('nantian_wbfw.maintenance_contract', string="维保合同",store="True")
     customer_wbfw = fields.Char(string="客户")
-    product_wbfw = fields.Char(string="产品型号")
+    product_wbfw = fields.Char(string="产品型号(弃用)")
+
+    # 添加个字段用于在tree上显示客户
+    view_customer = fields.Char(string="客户")
+
+    @api.multi
+    def _view_customer_product(self):
+        case_records = self.env['server_desk.case'].search([])
+        for s in case_records:
+            if s.customer_id:
+                s.view_customer = s.customer_id.name
+            elif s.customer_wbfw:
+                s.view_customer = s.customer_wbfw
+                s.product = s.product_wbfw
+            else:
+                pass
 
     # 还没写完的RMA功能
     def pop_window(self, cr, uid, ids, context=None):
@@ -217,7 +232,8 @@ class Case(models.Model):
                         result['value']['eq_wbfw_id'] = get_wbfw_sn.id
                         result['value']['contract_wbfw_id'] = get_wbfw_sn.contract_id.id
                         result['value']['customer_wbfw'] = get_wbfw_sn.customer
-                        result['value']['product_wbfw'] = get_wbfw_sn.type
+                        result['value']['product'] = get_wbfw_sn.type
+                        result['value']['view_customer'] = get_wbfw_sn.customer
                     else:
                         raise exceptions.ValidationError('SN号已过保')
                 elif get_sn:
@@ -226,6 +242,7 @@ class Case(models.Model):
                         result['value']['customer_id'] = get_sn.customer.id
                         result['value']['contract_id'] = get_sn.contract.id
                         result['value']['product'] = get_sn.product
+                        result['value']['view_customer'] = get_sn.customer.name
                     else:
                         raise exceptions.ValidationError('SN号已过保')
                 return result
