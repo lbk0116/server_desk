@@ -132,6 +132,7 @@ class Case(models.Model):
                                   ('DOA','DOA'),
                                   ('standby','standby')],default='Technology diagnosis',string="case类型",required=True)
     server_type = fields.Many2one('server_desk.server_type',string="服务类型")
+    server_type_name = fields.Char(related ='server_type.name')
     case_level = fields.Selection([('level1','1'),('level2','2'),('level3','3'),('level4','4')],default='level1')
     case_type_note = fields.Text(string="case类型说明")
     user_id = fields.Many2one('res.users', string="当前处理人",default=lambda self: self.env.user)

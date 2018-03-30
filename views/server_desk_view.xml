@@ -49,6 +49,7 @@
                                 <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                 <field name="SN_char" string = "设备序列号" on_change="onchange_SN(SN_char)"  required = "True"  />
                                <field name="server_type" string = "服务类型"/>
+                                <field name ="server_type_name" invisible ="True"></field>
                                 <field name="group_id" invisible="True"/>
                                 <field name="case_oem_no" attrs="{'readonly':['|',('group_id','!=',%(base.group_server_desk_tac1)d),('group_id','!=',%(base.group_server_desk_cds)d)]}"/>
                                 <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','customer_feedback')]}"/>
@@ -69,7 +70,7 @@
                 <group>
                         <group string  = "设备合同来源:思科">
                                     <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
-                                    <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
+                                    <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')],'invisible':[('server_type_name','=','第三方')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                     <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         </group>
                         <group string  = "设备合同来源:第三方维保">
@@ -137,6 +138,7 @@
                         <field name="contact_email" string = "联系邮箱" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="SN_char" string = "设备序列号"/>
                         <field name="server_type" string = "服务类型"/>
+                        <field name ="server_type_name" invisible ="True"></field>
                         <field name="product" string="产品型号"/>
                         <field name="case_oem_no" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                         <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','oem')]}"/>
@@ -154,7 +156,7 @@
                         <group>
                             <group string  = "设备合同来源:思科">
                                         <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
-                                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
+                                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')],'invisible':[('server_type_name','=','第三方')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                             </group>
                             <group string  = "设备合同来源:第三方维保">
@@ -222,6 +224,7 @@
                         <field name="contact_email" string = "联系邮箱" />
                         <field name="SN_char" string = "设备序列号" readonly="True"/>
                         <field name="server_type" string = "服务类型"/>
+                        <field name ="server_type_name" invisible ="True"></field>
                         <!--<field name="case_type_note" string = "case类型说明" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>-->
                         <field name="case_oem_no" />
                         <field name="product" string="产品型号"/>
@@ -239,7 +242,7 @@
                         <group>
                             <group string  = "设备合同来源:思科">
                                         <field name="SN" string = "SN" options='{"no_open":True,"no_create":1,"no_create_edit":1}' invisible="True" />
-                                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
+                                        <field name="customer_id" string = "客户" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_user" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')],'invisible':[('server_type_name','=','第三方')]}" options='{"no_open":True,"no_create":1,"no_create_edit":1}'/>
                                         <field name="contract_id" string = "合同号" groups="base.group_server_desk_admin,base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_master,base.group_server_desk_product_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router"/>
                             </group>
                             <group string  = "设备合同来源:第三方维保">
