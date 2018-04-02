@@ -310,7 +310,7 @@
                     <field name="case_id" string="case编号"/>
                     <field name="case_title" string="case标题"/>
                     <field name="case_level" string = "case级别" />
-                    <field name="view_customer" string = "客户" />
+                    <field name="customer_id" string = "客户" />
                     <field name="product" string="产品型号"/>
                     <field name="case_oem_no" string="厂商case编号"/>
                     <field name="contact_user" string = "故障联系人"  />
