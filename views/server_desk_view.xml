@@ -51,7 +51,7 @@
                                <field name="server_type" string = "服务类型"/>
                                 <field name ="server_type_name" invisible ="True"></field>
                                 <field name="group_id" invisible="True"/>
-                                <field name="case_oem_no" attrs="{'readonly':['|',('group_id','!=',%(base.group_server_desk_tac1)d),('group_id','!=',%(base.group_server_desk_cds)d)]}"/>
+                                <field name="case_oem_no" />
                                 <field name="next_group" string='下步处理组' groups="base.group_server_desk_tac1" attrs="{'invisible':[('state','!=','customer_feedback')]}"/>
                                <field name="product" string="产品型号"/>
 
