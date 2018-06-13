@@ -75,6 +75,7 @@ class equipment(models.Model):
     warranty_type  = fields.Char(string="WARRANTY TYPE") #
     warranty_end_date  = fields.Date(string="WARRANTY END DATE") #
     shipment_delivery_notice  = fields.Char(string="SHIPMENT DELIVERY NOTICE") #
+    brand = fields.Char(string="BRAND")
 
 class Contract(models.Model):
     _name ='server_desk.contract'

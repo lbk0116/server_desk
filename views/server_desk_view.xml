@@ -420,6 +420,7 @@
                             <field name="end_date" string = "维保结束日期"/>
                             <field name="last_date_of_support" string = "EOS日期"/>
                             <field name="product_ship_date" string = "设备发货日期"/>
+                            <field name="brand" string="品牌"/>
                         </group>
                     </group>
                              <notebook>
@@ -497,6 +498,7 @@
                     <field name="product_relationship" string = "产品相互关系"/>
                     <field name="customer" string="客户名称"/>
                     <field name="server_level" string="服务级别"/>
+                    <field name="brand" string="品牌"/>
                 </tree>
             </field>
     </record>
