@@ -61,7 +61,7 @@
                                 <field name="applicant_id" string="申请人" readonly="True" />
                                 <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                                <field name="create_date" string="创建时间" readonly = "True"/>
-                                <field name="write_date" string="更新时间" readonly = "True"/>
+                                <!--<field name="write_date" string="更新时间" readonly = "True"/>-->
                                 <field name="close_date" string="关闭时间" attrs="{'readonly':[('case_type','!=','standby')]}"  />
                                 <field name="start_time" string="开始时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                                 <field name="end_time" string="结束时间" attrs="{'invisible':[('case_type','!=','standby')]}"/>
@@ -111,10 +111,10 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>-->
+                    <!--<field name="message_ids" widget="mail_thread"/>-->
+                <!--</div>-->
             </form>
         </field>
     </record>
@@ -147,7 +147,7 @@
                         <field name="applicant_id" string="申请人" readonly="True"/>
                         <field name="applicant_way" string = "申请方式" attrs="{'readonly':[('applicant_id','!=','uid'),('state','!=','new'),'|',('state','!=','cds')]}"/>
                         <field name="create_date" string="创建时间" readonly = "True"/>
-                        <field name="write_date" string="更新时间" readonly = "True"/>
+                        <!--<field name="write_date" string="更新时间" readonly = "True"/>-->
                         <field name="close_date" string="关闭时间" attrs="{'readonly':[('case_type','!=','standby')]}"/>
                         <field name="start_time" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                         <field name="end_time" attrs="{'invisible':[('case_type','!=','standby')]}"/>
@@ -197,10 +197,10 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>-->
+                    <!--<field name="message_ids" widget="mail_thread"/>-->
+                <!--</div>-->
             </form>
         </field>
     </record> 
@@ -233,7 +233,7 @@
                         <field name="applicant_id" string="申请人" />
                         <field name="applicant_way" string = "申请方式" />
                         <field name="create_date" string="创建时间" />
-                        <field name="write_date" string="更新时间" />
+                        <!--<field name="write_date" string="更新时间" />-->
                         <field name="close_date" string="关闭时间" />
                         <field name="start_time" attrs="{'invisible':[('case_type','!=','standby')]}"/>
                         <field name="end_time" attrs="{'invisible':[('case_type','!=','standby')]}"/>
@@ -282,10 +282,10 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>-->
+                    <!--<field name="message_ids" widget="mail_thread"/>-->
+                <!--</div>-->
             </form>
         </field>
     </record>
