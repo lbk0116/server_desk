@@ -156,6 +156,18 @@
             </field>
         </record>
 
+
+        <record model="ir.actions.act_window" id="server_desk_server_type_action">
+            <field name="name">server_type</field>
+            <field name="res_model">server_desk.server_type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first server_type
+                </p>
+            </field>
+        </record>
+
         <record id="nantian_case_partner_action" model="ir.actions.act_window">
             <field name="name">service.partner</field>
             <field name="res_model">res.partner</field>
@@ -229,6 +241,7 @@
         <menuitem id="group_manage_menu" name="Group Manage" parent="serverdesk_manage_menu" action="server_desk_group_list_action" groups="base.group_server_desk_admin"/>
         <menuitem id="solution_manage_menu" name="Solution Manage" parent="serverdesk_knowledge_menu" action="server_desk_solution_list_action" groups="base.group_server_desk_cds,base.group_server_desk_admin,base.group_server_desk_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_master,base.group_server_desk_product_manager"/>
         <menuitem id="fault_manage_menu" name="fault manage" parent="serverdesk_knowledge_menu" action="server_desk_error_list_action" groups="base.group_server_desk_cds,base.group_server_desk_admin,base.group_server_desk_manager,base.group_server_desk_tac1,base.group_server_desk_tac2_ACS_CDN,base.group_server_desk_tac2_switch_router,base.group_server_desk_master,base.group_server_desk_product_manager"/>
+        <menuitem id="server_type_manage_menu" name="Case服务类型" parent="serverdesk_manage_menu" action="server_desk_server_type_action" groups="base.group_server_desk_cds,base.group_server_desk_manager,base.group_server_desk_product_manager,base.group_server_desk_admin"/>
 
         <menuitem id="nantian_MA_contract" name="nantian_MA_contract" parent="main_serverdesk_menu" groups="base.group_server_desk_manager"/>
         <menuitem name="MA_contract" id="MA_contract" sequence="5"  parent="nantian_MA_contract"  action="nantian_erp.nantian_MA_contract_view"/>

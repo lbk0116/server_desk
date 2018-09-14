@@ -89,6 +89,7 @@ access_server_desk_solution9,server_desk_solution9,model_server_desk_solution,ba
 access_server_desk_solution8,server_desk_solution8,model_server_desk_solution,base.group_server_desk_master,1,1,1,0
 access_server_desk_solution10,server_desk_solution10,model_server_desk_solution,base.group_server_desk_user,0,0,0,0
 
+server_type_all,server_type_all,model_server_desk_server_type,,1,1,1,1
 system_crw_all,system all,model_server_desk_system,,1,1,1,0
 log_all,log_all,model_server_desk_log,base.group_server_desk_cds,1,1,1,1
 res_groups_rw_manager,res_groups manager rw,base.model_res_groups,base.group_server_desk_admin,1,1,0,0
